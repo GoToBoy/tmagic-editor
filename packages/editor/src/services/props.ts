@@ -61,6 +61,17 @@ class Props extends BaseService {
     ]);
   }
 
+  // public setPropsStyles(styles: Record<string, FormConfig>) {
+  // Object.keys(configs).forEach((type: string) => {
+  //   this.setPropsConfig(toLine(type), configs[type]);
+  // });
+  // this.emit('props-configs-change');
+  // }
+
+  public async setPropsStyle(type: string, config: FormConfig) {
+    this.state.propsConfigMap[toLine(type)] = await this.fillConfig(Array.isArray(config) ? config : [config]);
+  }
+
   public setPropsConfigs(configs: Record<string, FormConfig>) {
     Object.keys(configs).forEach((type: string) => {
       this.setPropsConfig(toLine(type), configs[type]);
@@ -75,6 +86,8 @@ class Props extends BaseService {
   public async setPropsConfig(type: string, config: FormConfig) {
     this.state.propsConfigMap[toLine(type)] = await this.fillConfig(Array.isArray(config) ? config : [config]);
   }
+
+  // public async setPropsStyles()
 
   /**
    * 获取指点类型的组件属性表单配置

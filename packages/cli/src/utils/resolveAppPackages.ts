@@ -295,7 +295,7 @@ const parseEntry = function ({ ast, package: module, indexPath }: ParseEntryOpti
   }
 
   const tokens = getASTTokenByTraverse({ ast, indexPath });
-  let { config, value, event, component } = tokens;
+  let { config, value, event, component, style } = tokens;
 
   if (!config) {
     info(`${module} 表单配置文件声明缺失`);
@@ -305,6 +305,9 @@ const parseEntry = function ({ ast, package: module, indexPath }: ParseEntryOpti
   }
   if (!event) {
     info(`${module} 事件声明文件声明缺失`);
+  }
+  if (!style) {
+    info(`${module} 样式声明文件缺失`);
   }
   if (!component) {
     info(`${module} 组件或数据源文件声明不合法`);
@@ -316,12 +319,14 @@ const parseEntry = function ({ ast, package: module, indexPath }: ParseEntryOpti
   [, value] = value.match(reg) || [, value];
   [, component] = component.match(reg) || [, component];
   [, event] = event.match(reg) || [, event];
+  [, style] = style.match(reg) || [, style];
 
   return {
     config,
     value,
     component,
     event,
+    style,
   };
 };
 
@@ -330,6 +335,7 @@ const getASTTokenByTraverse = ({ ast, indexPath }: { ast: any; indexPath: string
   let value = '';
   let event = '';
   let component = '';
+  let style = '';
   const importSpecifiersMap: { [key: string]: string } = {};
   const exportSpecifiersMap: { [key: string]: string | undefined } = {};
 
@@ -392,6 +398,8 @@ const getASTTokenByTraverse = ({ ast, indexPath }: { ast: any; indexPath: string
       config = filePath;
     } else if (exportName === EntryType.EVENT) {
       event = filePath;
+    } else if (exportName === EntryType.STYLE) {
+      style = filePath;
     } else if (exportName === 'default') {
       component = component || filePath;
     }
@@ -402,6 +410,7 @@ const getASTTokenByTraverse = ({ ast, indexPath }: { ast: any; indexPath: string
     value,
     event,
     component,
+    style,
   };
 };
 
@@ -490,6 +499,7 @@ const setPackages = (packages: ModuleMainFilePath, app: App, packagePath: string
     if (entry.config) packages.configMap[key] = getRelativePath(entry.config, temp);
     if (entry.event) packages.eventMap[key] = getRelativePath(entry.event, temp);
     if (entry.value) packages.valueMap[key] = getRelativePath(entry.value, temp);
+    if (entry.style) packages.styleMap[key] = getRelativePath(entry.style, temp);
   } else if (result.type === PackageType.DATASOURCE) {
     // 数据源
     const entry = parseEntry({ ast, package: moduleName, indexPath });
@@ -556,6 +566,7 @@ export const resolveAppPackages = (app: App): ModuleMainFilePath => {
     dsConfigMap: {},
     dsEventMap: {},
     dsValueMap: {},
+    styleMap: {},
   };
 
   packagePaths.forEach(([packagePath, key]) => setPackages(packagesMap, app, packagePath, key));

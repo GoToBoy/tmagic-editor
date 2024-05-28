@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// import { cloneDeep } from 'lodash-es';
 
 import type { FormConfig, FormState, TabPaneConfig } from '@tmagic/form';
 
@@ -462,6 +463,12 @@ export const displayTabConfig: TabPaneConfig = {
     },
   ],
 };
+
+// export const mergeStyleTabConfig: TabPaneConfig = (styles: FormConfig = []) => {
+//   const mergedConfig = cloneDeep(styleTabConfig);
+
+//   return mergedConfig;
+// };
 
 /**
  * 统一为组件属性表单加上事件、高级、样式配置

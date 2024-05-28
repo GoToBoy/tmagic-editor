@@ -32,6 +32,7 @@ export const prepareEntryFile = async (app: App) => {
     'ds-config-entry': generateContent(useTs, EntryType.DS_CONFIG, moduleMainFilePath.dsConfigMap),
     'ds-value-entry': generateContent(useTs, EntryType.DS_VALUE, moduleMainFilePath.dsValueMap),
     'ds-event-entry': generateContent(useTs, EntryType.DS_EVENT, moduleMainFilePath.dsEventMap),
+    'style-entry': generateContent(useTs, EntryType.STYLE, moduleMainFilePath.styleMap),
   };
 
   if (typeof hooks?.beforeWriteEntry === 'function') {

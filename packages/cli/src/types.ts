@@ -12,6 +12,7 @@ export enum EntryType {
   DS_VALUE = 'dsValue',
   DS_EVENT = 'dsEvent',
   DATASOURCE = 'datasource',
+  STYLE = 'style',
 }
 
 export enum PackageType {
@@ -19,6 +20,7 @@ export enum PackageType {
   PLUGIN = '2',
   COMPONENT_PACKAGE = '3',
   DATASOURCE = '4',
+  STYLE = '5',
 }
 
 export interface Entry {
@@ -27,6 +29,7 @@ export interface Entry {
   [EntryType.COMPONENT]?: string;
   [EntryType.EVENT]?: string;
   [EntryType.DATASOURCE]?: string;
+  [EntryType.STYLE]?: string;
 }
 
 export interface OptionEntry {
@@ -62,6 +65,7 @@ export interface ModuleMainFilePath {
   dsConfigMap: Record<string, string>;
   dsValueMap: Record<string, string>;
   dsEventMap: Record<string, string>;
+  styleMap: Record<string, string>;
 }
 
 export interface UserConfig {

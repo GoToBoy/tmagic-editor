@@ -82,6 +82,14 @@ export const initServiceState = (
   );
 
   watch(
+    () => props.propsStyles,
+    (styles) => styles && propsService.setPropsStyles(styles),
+    {
+      immediate: true,
+    },
+  );
+
+  watch(
     () => props.propsValues,
     (values) => values && propsService.setPropsValues(values),
     {

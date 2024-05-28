@@ -43,6 +43,8 @@ export interface EditorProps {
   renderType?: RenderType;
   /** 选中时是否自动滚动到可视区域 */
   autoScrollIntoView?: boolean;
+  /** 组件的样式属性配置表单 */
+  propsStyles?: Record<string, FormConfig>;
   /** 组件的属性配置表单的dsl */
   propsConfigs?: Record<string, FormConfig>;
   /** 添加组件时的默认值 */
@@ -110,6 +112,7 @@ export const defaultEditorProps = {
   layerContentMenu: () => [],
   stageContentMenu: () => [],
   propsConfigs: () => ({}),
+  propsStyles: () => ({}),
   propsValues: () => ({}),
   eventMethodList: () => ({}),
   datasourceValues: () => ({}),

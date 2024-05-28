@@ -20,6 +20,7 @@ export default class Core {
     dsConfigMap: {},
     dsValueMap: {},
     dsEventMap: {},
+    styleMap: {},
   };
 
   public dir = {
